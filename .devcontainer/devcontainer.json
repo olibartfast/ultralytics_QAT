@@ -1,0 +1,37 @@
+{
+    // docker build -t yolov10_qat .
+    "name": "YOLOv10 qat",
+    "image": "yolov10_qat:latest",
+    "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter"
+    ],
+    "settings": {
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.autopep8Args": ["--max-line-length", "120"],
+        "python.formatting.provider": "autopep8"
+    },
+    // "mounts": [
+    //     "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+    //],
+    "remoteUser": "root",
+    "runArgs": [
+        "--gpus",
+        "all",
+        "--shm-size=1g",
+        "--rm"
+    ],
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "settings": {},
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter"
+            ]
+        }
+    }
+}
