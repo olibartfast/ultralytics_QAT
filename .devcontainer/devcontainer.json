@@ -18,9 +18,11 @@
     //],
     "remoteUser": "root",
     "runArgs": [
+        // "--gpus",
+        // "all",
         "--gpus",
-        "all",
-        "--shm-size=1g",
+        "device=1",        
+        "--shm-size=8g",
         "--rm"
     ],
     "workspaceFolder": "/workspace",
