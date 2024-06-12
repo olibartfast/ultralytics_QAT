@@ -220,7 +220,7 @@ def export_onnx(model : DetectionModel, save_file, size=640, dynamic_batch=False
 
 
 # def evaluate(torch_model, model_name='yolov8n.pt'):
-#     args = dict(model=model_name, data='ultralytics/ultralytics/cfg/datasets/coco128.yaml')
+#     args = dict(model=model_name, data='ultralytics/cfg/datasets/coco128.yaml')
 #     validator = DetectionValidator(args=args)
 
 #     # result = validator(model=torch_model)
