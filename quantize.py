@@ -191,10 +191,13 @@ def replace_to_quantization_module(model : torch.nn.Module, ignore_policy : Unio
 
     recursive_and_replace_module(model)
 
-
 def get_attr_with_path(m, path):
-
     def sub_attr(m, names):
+        # Verifica se il primo nome ha uno slash iniziale e rimuovilo
+        if names[0].startswith('/'):
+            names[0] = names[0][1:]
+        
+        print(names)
         name = names[0]
         value = getattr(m, name)
 
@@ -204,7 +207,6 @@ def get_attr_with_path(m, path):
         return sub_attr(value, names[1:])
     return sub_attr(m, path.split("."))
 
-
 def apply_custom_rules_to_quantizer(model : torch.nn.Module, export_onnx : Callable):
 
     # apply rules to graph
@@ -212,7 +214,10 @@ def apply_custom_rules_to_quantizer(model : torch.nn.Module, export_onnx : Calla
     pairs = find_quantizer_pairs("quantization-custom-rules-temp.onnx")
     for major, sub in pairs:
         print(f"Rules: {sub} match to {major}")
-        get_attr_with_path(model, sub)._input_quantizer = get_attr_with_path(model, major)._input_quantizer
+        try:
+            get_attr_with_path(model, sub)._input_quantizer = get_attr_with_path(model, major)._input_quantizer
+        except AttributeError as e:
+            print(f"Error: {e}")    
     os.remove("quantization-custom-rules-temp.onnx")
 
     for name, bottleneck in model.named_modules():
