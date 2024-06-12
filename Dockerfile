@@ -1,11 +1,12 @@
 # Use the NVIDIA NGC PyTorch base image
 FROM nvcr.io/nvidia/pytorch:23.08-py3
+ARG YOLOV10_WEIGHTS=yolov10x
 
 # Set the working directory in the container
-WORKDIR /workspace
+WORKDIR /yolov10_qat
 
 # Copy the current directory contents into the container at /workspace
-COPY . /workspace
+COPY . /yolov10_qat
 
 # Install any additional dependencies if necessary
 RUN apt-get update && apt-get install -y \
@@ -23,6 +24,8 @@ RUN pip3 install -q git+https://github.com/THU-MIG/yolov10.git \
     && rm -rf /root/.cache/pip
 
 RUN pip3 install -r requirements.txt
+
+RUN wget https://github.com/THU-MIG/yolov10/releases/download/v1.1/$YOLOV10_WEIGHTS.pt
 
 # Expose any ports if necessary (example: 8080)
 # EXPOSE 8080
