@@ -57,7 +57,7 @@ from ultralytics.data import build_dataloader, build_yolo_dataset
 from ultralytics.utils import clean_url, emojis
 def build_dataset(cfg, img_path, mode='train', batch=None, gs=32):
     """Build YOLO Dataset."""
-    cfg.data = "ultralytics/ultralytics/cfg/datasets/coco128.yaml"
+    cfg.data = "ultralytics/cfg/datasets/coco128.yaml"
     try:
         if cfg.task == 'classify':
             data = check_cls_dataset(cfg.data)
@@ -299,8 +299,8 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('--weight', type=str, default='yolov8n.pt', help='initial weight patsh')
-    parser.add_argument('--cocodir', type=str,  default="datasets/coco128/", help="coco directory")
+    parser.add_argument('--weight', type=str, default='yolov10x.pt', help='initial weight patsh')
+    parser.add_argument('--cocodir', type=str,  default="/datasets/coco128/", help="coco directory")
     parser.add_argument("--device", type=str, default="cuda:0", help="device")
 
     parser.add_argument('--save', type=str,  required=False, help="coco directory")
@@ -314,7 +314,7 @@ if __name__ == "__main__":
     parser.add_argument("--eval-origin", action="store_true", help="do eval for origin model")
     parser.add_argument("--eval-ptq", action="store_true", help="do eval for ptq model")
     
-    parser.add_argument("--ignore-policy", type=str, default="model\.24\.m\.(.*)", help="regx")
+    parser.add_argument("--ignore-policy", type=str, default="", help="regx")
     parser.add_argument("--supervision-stride", type=int, default=1, help="supervision stride")
     parser.add_argument("--iters", type=int, default=200, help="iters per epoch")
     parser.add_argument("--summary", type=str, default="sensitive-summary.json", help="summary save file")
