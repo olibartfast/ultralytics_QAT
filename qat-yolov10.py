@@ -227,8 +227,10 @@ def export_onnx(model : DetectionModel, save_file, size=640, dynamic_batch=False
 #     # mAP = result["metrics/mAP50-95(B)"]
 #     return validator(model=torch_model)["metrics/mAP50-95(B)"]
 
+from ultralytics.models.yolov10.val import YOLOv10DetectionValidator
 def evaluate_coco(model, val_dataloader):
-    validator = yolo.detect.DetectionValidator(dataloader=val_dataloader, args=cfg)
+    # validator = yolo.detect.DetectionValidator(dataloader=val_dataloader, args=cfg)
+    validator = YOLOv10DetectionValidator(dataloader=val_dataloader, args=cfg)
     val_model = deepcopy(model) # deepcopy
     mAP = validator(model=val_model)["metrics/mAP50-95(B)"]
     return mAP
