@@ -1,5 +1,5 @@
 {
-    // docker build -t yolov10_qat .
+    // docker build -t ultralytics_qat .
     "name": "ultralytics qat",
     "image": "ultralytics_qat:latest",
     "extensions": [
