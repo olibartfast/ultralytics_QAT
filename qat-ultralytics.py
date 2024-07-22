@@ -9,7 +9,7 @@ from copy import deepcopy
 from ultralytics.utils.torch_utils import init_seeds
 
 # from ultralytics.utils import DEFAULT_CFG as cfg
-# DEFAULT_CFG -> 默认的配置文件路径: /home/anaconda3/envs/quant/lib/python3.8/site-packages/ultralytics/cfg/default.yaml
+# <your_python_env>/site-packages/ultralytics/cfg/default.yaml
 import quantize
 
 from ultralytics.cfg import get_cfg
@@ -227,10 +227,8 @@ def export_onnx(model : DetectionModel, save_file, size=640, dynamic_batch=False
 #     # mAP = result["metrics/mAP50-95(B)"]
 #     return validator(model=torch_model)["metrics/mAP50-95(B)"]
 
-from ultralytics.models.yolov10.val import YOLOv10DetectionValidator
 def evaluate_coco(model, val_dataloader):
-    # validator = yolo.detect.DetectionValidator(dataloader=val_dataloader, args=cfg)
-    validator = YOLOv10DetectionValidator(dataloader=val_dataloader, args=cfg)
+    validator = yolo.detect.DetectionValidator(dataloader=val_dataloader, args=cfg)
     val_model = deepcopy(model) # deepcopy
     mAP = validator(model=val_model)["metrics/mAP50-95(B)"]
     return mAP
